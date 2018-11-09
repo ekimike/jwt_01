@@ -1,6 +1,7 @@
 package com.example.demo.security;
 
 import static com.example.demo.security.SecurityConstants.SIGN_UP_URL;
+import static com.example.demo.security.SecurityConstants.H2_CONSOLE;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -31,6 +32,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers(HttpMethod.POST, SIGN_UP_URL).permitAll()
+                .antMatchers(HttpMethod.GET, H2_CONSOLE).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
